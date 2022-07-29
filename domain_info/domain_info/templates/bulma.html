@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %} Template theme {% endblock title %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+        <!-- Bulma Version 0.9.0-->
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/admin.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        {% block scripts %}{% endblock scripts %}
+
+        <style>
+            .error {
+            color: #FF0000 !important;
+            font-weight: 700;
+            }
+            .enabled {
+            color: #00BF2C !important;
+            font-weight: 700;
+            }
+            .pending {
+            color: #787878 !important;
+            font-weight: 700;
+            }
+
+            body {
+                    height: 100vh;
+            }
+            .is-active{
+                background-color: #363636 !important; 
+            }
+
+            section {
+                margin-top: 10px;
+            }
+
+            .card {
+                margin-top: 10px;
+                overflow: auto;
+                max-height: 65vh;
+            }
+            section {
+                visibility: hidden;
+                display: none;
+            }
+        </style>
+    </head>
+
+
+    <body class="has-background-grey-light">
+
+        <!-- START NAV -->
+        <nav class="navbar is-dark">
+            <div class="container">
+                <div class="navbar-brand">
+                        <a class="navbar-item brand-text" href="/">
+                            DomainInfo
+                        </a>
+                    <div class="navbar-burger burger" data-target="navMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div id="navMenu" class="navbar-menu">
+                    <div class="navbar-start">
+    
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+        <!-- END NAV -->
+        <div class="container ">
+            <div class="columns">
+                <div class="column is-3 ">
+                    <aside class="menu is-hidden-mobile">
+
+                    </aside>
+                </div>
+                <div class="column is-9">
+                    {% block body %}
+                    <hr>
+                    
+                    {% endblock body %}
+                </div>
+            </div>
+        </div>
+        <script async type="text/javascript" src="https://bulmatemplates.github.io/bulma-templates/js/bulma.js"></script>
+    </body>
+
+</html>

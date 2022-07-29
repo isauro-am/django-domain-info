@@ -1,0 +1,169 @@
+{% extends '../bulma.html' %}
+
+{% block title %} Domain Info{% endblock title %} 
+
+{% block body %}
+
+<div class="card">
+    <div class="card-content">
+        Indica que dominio deseas consultar <b>  </b>
+        <br>
+        <br>
+      <form method="post">
+        {% csrf_token %} 
+        <input class="input" name="domain" id="domain" placeholder="example.mx" type="text">
+        <br>
+        <br>
+        <button type="submit" class="button">
+            <i class="material-icons">search</i> 
+            Buscar 
+        </button>
+      </form>
+    </div>
+</div>
+
+{% if data %}
+
+<div class="card">
+  <div class="card-content">
+    <a href="https://{{domain}}"> 
+        <b> {{ domain }} </b>
+    </a>
+    <br>
+    <br>
+  
+    <div class="card-table">
+        <div class="content">
+            <b>Records</b>
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </thead>
+                <tbody>
+                    {% for txt_record in txt %}
+                    <tr>
+                        <td width="5%"><i class="material-icons pending">description</i></td>
+                        <td>TXT</td>
+                        <td>@</td>
+                        <td>{{ txt_record }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for txt_record in dmarc %}
+                    <tr>
+                        <td width="5%"><i class="material-icons pending">description</i></td>
+                        <td>TXT</td>
+                        <td>_dmarc.{{ domain }}</td>
+                        <td>{{ txt_record }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for mx_record in mx %}
+                    <tr>
+                        <td width="5%"><i class="material-icons pending">description</i></td>
+                        <td>MX</td>
+                        <td>@</td>
+                        <td>{{ mx_record }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for record in a %}
+                    <tr>
+                        <td width="5%"><i class="material-icons pending">description</i></td>
+                        <td>A</td>
+                        <td>@</td>
+                        <td>{{ record }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for record in ns %}
+                    <tr>
+                        <td width="5%"><i class="material-icons pending">description</i></td>
+                        <td>NS</td>
+                        <td></td>
+                        <td>{{ record }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="content">
+            <b>Reverse Hostnames</b>
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <td></td>
+                    <td></td>
+                </thead>
+                {% for record in hostnames %}
+                <tr>
+                    <td width="5%"><i class="material-icons pending">language</i></td>
+                    <td>{{ record }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+  
+        <br>
+        
+
+        {% for ip in ips %}
+
+            <div class="content">
+                <b>{{ ip.flag.emoji }} {{ ip.ip }}</b>
+                <table class="table is-fullwidth is-striped">
+                    <thead>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </thead>
+                    <tr>
+                        <td width="5%">{{ ip.flag.emoji }}</td>
+                        <td> continent </td>
+                        <td>{{ ip.continent }}</td>
+                    </tr>
+                    <tr>
+                        <td width="5%">{{ ip.flag.emoji }}</td>
+                        <td> country </td>
+                        <td>{{ ip.country }}</td>
+                    </tr>
+                    <tr>
+                        <td width="5%">{{ ip.flag.emoji }}</td>
+                        <td> region </td>
+                        <td>{{ ip.region }}</td>
+                    </tr>
+                    <tr>
+                        <td width="5%">{{ ip.flag.emoji }}</td>
+                        <td> city </td>
+                        <td>{{ ip.city }}</td>
+                    </tr>
+                    <tr>
+                        <td width="5%">{{ ip.flag.emoji }}</td>
+                        <td> capital </td>
+                        <td>{{ ip.capital }}</td>
+                    </tr>
+                    <tr>
+                        <td width="5%">{{ ip.flag.emoji }}</td>
+                        <td> latitude / longitude </td>
+                        <td>{{ ip.latitude }} / {{ ip.longitude }}</td>
+                    </tr>
+                    <tr>
+                        <td width="5%"><i class="material-icons pending">corporate_fare</i></td>
+                        <td> Organization </td>
+                        <td>{{ ip.connection.org }}</td>
+                    </tr>
+                    <tr>
+                        <td width="5%"><i class="material-icons pending">corporate_fare</i></td>
+                        <td> domain </td>
+                        <td>{{ ip.connection.domain }}</td>
+                    </tr>
+                </table>
+            </div>
+
+        {% endfor %}
+
+  
+    </div>
+</div>
+{% endif %}
+
+{% endblock body %}
